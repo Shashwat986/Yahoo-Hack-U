@@ -1,0 +1,49 @@
+<html>
+<head><title>Yahoo! Voices</title></head>
+<body>
+<table>
+<tr>
+<td colspan="2">
+<table>
+<tr>
+<td>
+<img src="https://s.yimg.com/ck/image/A2082/2082391/470_2082391.0" />
+</td>
+<td>
+<h3>Hack by Shashwat Chandra</h3>
+<br/>
+An improvement on the results' display in Yahoo! Voices. Articles are grouped into sets of similar opinions and color-coded for ease of access.
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+<b>Quick classify:</b><br/>
+<form action="/cgi-bin/voice_res.py" action="GET">
+<table>
+<tr>
+<td>Search Query: </td><td><input type="text" name="q" value="abortion" /> </td>
+</tr>
+<tr>
+<td>Number of Results: </td><td><input type="text" name="lim" value="15" /> </td>
+</tr>
+<tr>
+<td>Number of Categories: </td><td><input type="text" name="cats" value="5" /> </td>
+</tr>
+</table>
+<input type="submit" value="submit" /> <br/>
+</form>
+</td>
+<td>
+Comprehensive classify:<br/>
+<form action="/cgi-bin/1.0/voice_res.py" action="GET">
+<input type="text" name="q" value="abortion" />
+<input type="submit" value="submit" />
+</form>
+</td>
+</tr>
+</table>
+</body>
+</html>
