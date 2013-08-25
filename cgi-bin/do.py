@@ -50,13 +50,12 @@ try:
 	print '<i>'+ head + '</i><br/>'
 except:
 	print head.encode('utf-8');
-#----------------SYNONYM/ANTONYM FREQUENCY COUNTER-----------------
+#----------------COMMENT BIAS COUNTER-----------------
 
 try:
 	comments=soup.find(id="comment_list")
 	
-	print comments.find('h3').string
-	num_comm+=int(comments.find('h3').string.split()[0])
+	num_comm=int(comments.find('h3').string.split()[0])
 	comm=soup.find_all("p","content")
 	commenttext=""
 	for c in comm:
@@ -82,7 +81,7 @@ else:
 	else:
 		comm_bias=0.0
 
-print "Number of comments:",num_comm,'<br/>'
+#print "Number of comments:",num_comm,'<br/>'
 
 #----------------SYNONYM/ANTONYM FREQUENCY COUNTER-----------------
 
@@ -142,6 +141,7 @@ if bias is not None:
 '''
 #----------------OFF-THE-SHELF SENTIMENT ANALYSIS TOOL-----------------
 #- I'm using AlchemyAPI.                                              -
+#- Alternate API-KEY: 364dff5755880f9d141b88b7c67c5281e848ff65        -
 #----------------------------------------------------------------------
 sentiment=0
 
@@ -237,7 +237,7 @@ fp=open('data/%s.txt'%keyword,'a')
 fp.write('('+str(ctr)+","+str(comm_bias)+')\n')
 fp.close()
 if comm_bias is not None:
-	print "Comment Bias: %.2g" % comm_bias
+	print "Comment Bias: %.2g" % comm_bias , '(%d Comments)'%num_comm
 else: print comm_bias
 print '<br/>'
 

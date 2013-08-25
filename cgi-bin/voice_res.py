@@ -31,7 +31,7 @@ else:
 
 
 # Search string.
-q=cgi.escape(form["q"].value,True)
+q=cgi.escape(form["q"].value.split()[0],True)
 fp=open('data/%s.txt' % q,'w')
 fp.close()
 print '''<html>
@@ -44,22 +44,22 @@ print '''<html>
 print '''
 <style type="text/css">
 .c0{
-	background-color:#ff6633;
+	background-color:#faac58;
 }
 .c1{
-	background-color:#ff99ff;
+	background-color:#2efef7;
 }
 .c2{
-	background-color:#33ffff;
+	background-color:#f781f3;
 }
 .c3{
-	background-color:ff3333;
+	background-color:#81f781;
 }
 .c4{
-	background-color:66ccff;
+	background-color:#fa5858;
 }
 .c5{
-	background-color:ffff00;
+	background-color:#f4fa58;
 }
 .uc{
 	background-color:silver;
