@@ -14,28 +14,31 @@ if "aurl" not in form or "aname" not in form:
 print "Content-type: text/plain"
 print
 
+# PREPROCESSING
 # The URL to access
-aurl=form["aurl"].value
-au=form["aname"].value
+a_url=form["aurl"].value
+a_name=form["aname"].value
 ctr=int(form["id"].value)
 keyword=form["term"].value.lower()
 
 import urllib2
 from bs4 import BeautifulSoup
 
-#proxy_support=urllib2.ProxyHandler({})							# No Proxy
-proxy_support=urllib2.ProxyHandler({"ghoshs:nature89@bsnlproxy.iitk.ac.in":3128})
+proxy_support=urllib2.ProxyHandler({})							# No Proxy
+#proxy_support=urllib2.ProxyHandler({"username:password@bsnlproxy.iitk.ac.in":3128})	#Proxy
 opener=urllib2.build_opener(proxy_support)
 urllib2.install_opener(opener)
 
-print au
+# Display the author name
+print a_name
 print '<br/>'
 
-#----------------FEATURED ARTICLE COUNT-----------------
+#------------------------FEATURED ARTICLE COUNT------------------------
 feat_count=0
 
+# Using the YQL API to get information about the article author.
 try:
-	response=urllib2.urlopen(r'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoovoices.featuredarticles%20where%20query%3D%22'+aurl+r'%22&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys')
+	response=urllib2.urlopen(r'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoovoices.featuredarticles%20where%20query%3D%22'+a_url+r'%22&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys')
 except:
 	print "Not able to open Yahoo!"
 	sys.exit(1)
@@ -44,8 +47,13 @@ except:
 msg=response.read()
 soup=BeautifulSoup(msg)
 
-art=soup.find('count')
-feat_count = int(art.string)
+data_a=soup.find('count')
+feat_count = int(data_a.string)
+
+# Results:
+#		feat_count --> Number of featured articles
+# On error, feat_count = None
+
 
 #----------------NUMBER OF COMMENTS ON RECENT ARTICLES-----------------
 '''
@@ -87,11 +95,23 @@ else:
 '''
 
 
-#----------------SAVING-----------------
+#-------------------WRITE DATA TO FILE FOR NEXT STEP-------------------
+#-    This section of the code writes all the information gathered    -
+#-        into the file created in `voice_res.py`.                    -
+#-    This information is used by `done.py` when it is called.        -
+#-                                                                    -
+#-    This section also displays the calculated values so that they   -
+#-        can be shown on `voice_res.py` when the AJAX call completes -
+#----------------------------------------------------------------------
+
+# Featured Article Count
 fp=open('data/%s.txt'%keyword,'a')
 fp.write('('+str(ctr)+","+str(feat_count)+')\n')
 fp.close()
-print '('+str(feat_count)+' featured)'
+if feat_count is not None:
+	print '('+str(feat_count)+' featured)'
+else:
+	print feat_count
 print '<br/>'
 
 '''
