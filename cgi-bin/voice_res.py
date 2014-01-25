@@ -238,7 +238,7 @@ for tag in res.children:
 	# The Title and link to article go here. ID = "in%" where % is the result number
 	print '<tr><td id="in%d">'%ctr
 	
-	title_a = tag.find(f_title)									# The A element
+	title_a = tag.find_all(f_title)[-1]								# The A element
 	title_a['href']='http://voices.yahoo.com'+title_a['href']
 	title_a['target']='_blank'
 	title_link = title_a['href']									# The url to the page
