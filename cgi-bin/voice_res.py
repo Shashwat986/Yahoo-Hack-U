@@ -205,15 +205,17 @@ opener=urllib2.build_opener(proxy_support)
 urllib2.install_opener(opener)
 
 # Get results from Yahoo! Voices.
-url = 'http://voices.yahoo.com/search.html?content_type=article&q='+q
+q = "+".join(q.split())
+#url = 'http://voices.yahoo.com/search.html?content_type=article&q='+q
+url = 'http://voices.yahoo.com/subject/article/'+q
 
 try:
 	response=urllib2.urlopen(url)
+	msg=response.read()
 except:
 	print "Not able to open Yahoo!"
 	sys.exit(1)
 
-msg=response.read()
 soup=BeautifulSoup(msg)
 
 # Custom searces in BS

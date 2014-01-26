@@ -31,16 +31,16 @@ urllib2.install_opener(opener)
 
 try:
 	response=urllib2.urlopen(url)
+	msg=response.read()
 except:
 	print "Not able to open Yahoo!"
 	sys.exit(1)
 
 # PREPROCESSING
-msg=response.read()
 soup=BeautifulSoup(msg)
 
 data_h=soup.find(id='content_header')
-data_a=soup.find(id='c-ontent_article')
+data_a=soup.find(id='content_article')
 # `data` contains the text of the entire article
 data=data_a.get_text()
 

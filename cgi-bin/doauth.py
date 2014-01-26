@@ -39,12 +39,12 @@ feat_count=0
 # Using the YQL API to get information about the article author.
 try:
 	response=urllib2.urlopen(r'http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoovoices.featuredarticles%20where%20query%3D%22'+a_url+r'%22&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys')
+	msg=response.read()
 except:
 	print "Not able to open Yahoo!"
 	sys.exit(1)
 
 # Parse YQL's result
-msg=response.read()
 soup=BeautifulSoup(msg)
 
 data_a=soup.find('count')
